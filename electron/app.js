@@ -136,7 +136,7 @@ function updateTransactionsDisplay() {
 
 function updateRulesDisplay() {
   if (appRules.length === 0) {
-    document.getElementById('rulesList').innerHTML = '<p>No hay reglas automáticas configuradas</p>';
+    document.getElementById('rulesList').innerHTML = '<p>No hay gastos o ingresos programados</p>';
   } else {
     document.getElementById('rulesList').innerHTML = appRules.map(r => 
       '<div style="margin-bottom: 10px; padding: 10px; background: #e3f2fd; border-radius: 5px;">' +
