@@ -1,109 +1,89 @@
-# Aplicación de Gestión de Gastos e Ingresos
+# Gestión de Finanzas
 
-Aplicación web completa para gestionar finanzas personales con capacidad de automatización de ingresos recurrentes.
+Aplicación de escritorio para Windows para gestionar finanzas personales con capacidad de automatización de ingresos y gastos recurrentes.
 
 ## Características
 
-- ✅ Sistema de autenticación de usuarios multi-usuario
 - ✅ Registro manual de ingresos y gastos diarios
-- ✅ Sistema de automatización de ingresos recurrentes (semanales/mensuales)
+- ✅ Sistema de automatización de transacciones recurrentes (semanales/mensuales)
 - ✅ Dashboard con balance en tiempo real
+- ✅ Tarjetas visuales para ingresos, gastos y balance
+- ✅ Colores dinámicos (verde para positivo, rojo para negativo)
 - ✅ Historial completo de transacciones
-- ✅ Gestión de categorías
-- ✅ Interfaz de usuario moderna y responsiva
+- ✅ 4 temas de colores (Púrpura, Azul, Verde, Oscuro)
+- ✅ Persistencia de tema seleccionado
+- ✅ Interfaz moderna y responsive
+- ✅ Funciona sin Node.js ni npm instalados
 
 ## Stack Tecnológico
 
-### Backend
-- Node.js + Express + TypeScript
-- Base de datos JSON con lowdb
-- Autenticación JWT
-- bcryptjs para encriptación de contraseñas
+- **Electron**: Aplicación de escritorio
+- **Express**: Servidor integrado
+- **lowdb**: Base de datos JSON
+- **JavaScript ES6+**: Lógica de la aplicación
+- **HTML5/CSS3**: Interfaz de usuario
 
-### Frontend
-- React + TypeScript
-- Vite
-- React Router
-- Axios para peticiones HTTP
-- Tailwind CSS (estilos inline)
+## Instalación
 
-## Instalación y Uso
+### Para usuarios finales
 
-### Requisitos previos
+1. Descarga el instalador: `Gestión de Finanzas Setup 1.0.0.exe`
+2. Ejecuta el instalador
+3. Sigue el asistente de instalación
+4. La aplicación se instalará en tu sistema
+
+### Para desarrolladores
+
+#### Requisitos previos
 - Node.js instalado
 - npm instalado
 
-### Configuración del proyecto
+#### Configuración del proyecto
 
-1. **Clonar o navegar al directorio del proyecto**
+1. **Navegar al directorio del proyecto**
    ```bash
    cd gastos-ingresos-app
    ```
 
-2. **Instalar dependencias del backend**
+2. **Instalar dependencias**
    ```bash
-   cd backend
    npm install
    ```
 
-3. **Instalar dependencias del frontend**
+3. **Ejecutar en modo desarrollo**
    ```bash
-   cd ../frontend
-   npm install
+   npm start
    ```
 
-### Ejecutar la aplicación
-
-1. **Iniciar el servidor backend** (en una terminal)
+4. **Generar instalador para Windows**
    ```bash
-   cd backend
-   npm run dev    # Para desarrollo con nodemon
-   # o
-   npm run build  # Para compilar
-   npm start      # Para producción
+   npm run build:win
    ```
-
-2. **Iniciar el servidor frontend** (en otra terminal)
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-3. **Abrir el navegador**
-   - Frontend: http://localhost:5173
-   - Backend API: http://localhost:3000
+   El instalador se generará en: `C:\Users\Mateo\Desktop\Instaladores\`
 
 ## Estructura del Proyecto
 
 ```
 gastos-ingresos-app/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/      # Controladores de la API
-│   │   ├── models/          # Modelos de datos y lógica de negocio
-│   │   ├── routes/          # Rutas de Express
-│   │   ├── middleware/      # Middleware de autenticación
-│   │   └── index.ts         # Punto de entrada del servidor
-│   ├── data/                # Base de datos JSON (se crea automáticamente)
-│   └── package.json
-└── frontend/
-    ├── src/
-    │   ├── components/      # Componentes de React
-    │   ├── pages/           # Páginas de la aplicación
-    │   ├── services/        # Servicios API
-    │   ├── contexts/        # Contextos de React
-    │   └── types/           # Definiciones TypeScript
-    └── package.json
+├── electron/
+│   ├── main.js            # Proceso principal de Electron
+│   ├── preload.js         # Script de preload
+│   ├── index.html         # Interfaz de usuario
+│   └── app.js             # Lógica de la aplicación
+├── backend/              # Código backend (referencia)
+├── frontend/             # Código frontend (referencia)
+└── package.json          # Configuración del proyecto
 ```
 
 ## Uso de la Aplicación
 
-### 1. Registro e Inicio de Sesión
-- Crea una cuenta en la página de registro
-- Inicia sesión con tus credenciales
+### 1. Temas de Colores
+- Usa los botones circulares en la parte superior para cambiar el tema
+- Temas disponibles: Púrpura, Azul, Verde, Oscuro
+- El tema seleccionado se guarda automáticamente
 
 ### 2. Agregar Transacciones Manuales
-- En el dashboard, usa el formulario "Agregar Transacción"
+- En la sección "Agregar Transacción"
 - Selecciona tipo (Ingreso/Gasto)
 - Ingresa monto, categoría y descripción
 - Haz clic en "Agregar"
@@ -120,72 +100,54 @@ gastos-ingresos-app/
 
 ### 4. Ejecutar Reglas Automáticas
 - En la sección "Reglas Automáticas"
-- Haz clic en "Ejecutar Reglas Pendientes"
+- Haz clic en "⚡ Ejecutar Reglas Pendientes"
 - Las reglas que cumplan con la fecha se ejecutarán automáticamente
 
 ### 5. Ver Balance y Historial
-- El dashboard muestra balance total, ingresos y gastos
-- El historial muestra todas las transacciones con fecha
-- Las transacciones automáticas están marcadas
+- El dashboard muestra 3 tarjetas: Ingresos, Gastos y Balance
+- Balance verde cuando es positivo, rojo cuando es negativo
+- El historial muestra todas las transacciones
+- Las transacciones automáticas están marcadas con "Auto"
 
-## API Endpoints
+## Almacenamiento de Datos
 
-### Autenticación
-- `POST /api/auth/register` - Registrar usuario
-- `POST /api/auth/login` - Iniciar sesión
+La aplicación guarda los datos en:
+- `C:\Users\TU_USUARIO\AppData\Roaming\gestion-finanzas\data\db.json`
 
-### Transacciones
-- `POST /api/transactions` - Crear transacción
-- `GET /api/transactions` - Obtener transacciones del usuario
-- `DELETE /api/transactions/:id` - Eliminar transacción
-- `GET /api/transactions/balance` - Obtener balance
+## Compilación
 
-### Reglas Automáticas
-- `POST /api/automatic-rules` - Crear regla automática
-- `GET /api/automatic-rules` - Obtener reglas del usuario
-- `PUT /api/automatic-rules/:id` - Actualizar regla
-- `DELETE /api/automatic-rules/:id` - Eliminar regla
-- `POST /api/automatic-rules/execute` - Ejecutar reglas pendientes
-
-## Variables de Entorno
-
-El archivo `.env` en el backend contiene:
-```
-PORT=3000
-JWT_SECRET=your-secret-key-change-in-production
+### Compilar para Windows
+```bash
+npm run build:win
 ```
 
-**Importante:** Cambia `JWT_SECRET` en producción por una cadena segura y aleatoria.
-
-## Datos
-
-La aplicación utiliza una base de datos JSON que se guarda en:
-- `backend/data/db.json`
-
-Este archivo se crea automáticamente la primera vez que se ejecuta la aplicación.
+### Compilar para todas las plataformas
+```bash
+npm run build:all
+```
 
 ## Notas
 
-- La aplicación está configurada para desarrollo
-- Para producción, asegúrate de:
-  - Cambiar el JWT_SECRET
-  - Configurar HTTPS
-  - Usar una base de datos de producción
-  - Configurar proper CORS
-  - Implementar rate limiting
-  - Agregar validaciones adicionales
+- La aplicación es un ejecutable autónomo que no requiere instalación de Node.js
+- La base de datos se crea automáticamente al iniciar la aplicación
+- El tema seleccionado se guarda en localStorage
+- Para desarrollo, usa `npm start` para iniciar la aplicación con recarga en caliente
 
-## Problemas Comunes
+## Solución de Problemas
 
-### Node.js no reconocido
-Si obtienes errores de "node no reconocido", asegúrate de que Node.js esté en el PATH del sistema:
-1. Agrega `C:\Program Files\nodejs` a las variables de entorno PATH
-2. Reinicia la terminal
+### La aplicación no inicia
+- Verifica que no haya otra instancia corriendo
+- Revisa los permisos de la carpeta de datos
+- reinstala la aplicación
 
-### Puerto en uso
-Si el puerto 3000 o 5173 está en uso, puedes cambiarlos en:
-- Backend: archivo `.env` (PORT)
-- Frontend: archivo `vite.config.ts` (server.port)
+### Los datos no se guardan
+- Verifica que tengas permisos de escritura en AppData
+- Revisa el espacio en disco
+
+### El instalador no funciona
+- Ejecuta como administrador
+- Desactiva temporalmente el antivirus
+- Verifica que Windows esté actualizado
 
 ## Licencia
 
